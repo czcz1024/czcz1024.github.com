@@ -41,14 +41,9 @@
                     <option value="1">减法</option>
                 </select>                
                 <button id="gen" onclick="gen()" type="button" class="btn btn-primary" >生成</button>                
-                <!-- <button id="check" onclick="check()" type="button" class="btn btn-warning" >检查</button>                 -->
+                <button id="check" onclick="check()" type="button" class="btn btn-warning" >检查</button>                
             </div>            
-            <div id="show" class="ti"></div>
-            <div id="next" class="row">
-                <div class="col-md-11">
-                    <button id="check" onclick="check()" type="button" class="btn btn-warning btn-block" >检查</button>                
-                </div>
-            </div>
+            <div id="show" class="ti"></div>            
         </div>
         <script>            
             function rnd(min,max){
@@ -165,26 +160,29 @@
                         showOneCompute(x,y);
                         pass=x.number1>9 && x.number2>9 && x.result>9 && y.number2>9 && y.result>9;
                         console.log(x.number1+(x.type==0?"+":"-")+x.number2+"="+x.result+(y.type==0?"+":"-")+y.number2+"="+y.result);
-                    }
-                    $("#next").show();                    
+                    }                    
                 }
             }
 
             function check(){
-                $("input").each(function(){
+                var haserr=false;
+                $("input").each(function(){                    
                     if($(this).val()!=$(this).attr("tag")){
                         $(this).addClass("err").removeClass("ok");
-                        $("#gen").attr("disabled",true);
+                        haserr=true;                        
                     }else{
-                        $(this).removeClass("err").addClass("ok");
-                        $("#gen").attr("disabled",false);
-                        //gen();
-                    }
+                        $(this).removeClass("err").addClass("ok");                        
+                    }                    
                 });
+                if(haserr){
+                    $("#gen").attr("disabled",true);
+                }
+                else{
+                    $("#gen").attr("disabled",false);                        
+                }
             }
 
-            $(function(){
-                $("#next").hide();
+            $(function(){                
                 $(document).on("keypress", "input", function (e) {                                        
                     if (e.keyCode == 8) {
                         return true;

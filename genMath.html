@@ -17,6 +17,15 @@
             .ok{ border:1px lightgreen solid !important}
             .ti{margin:0 auto;text-align:center; font-size: 28px}
             .ctrl{margin:0 auto;text-align:center}
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+            }
+            
+            input[type="number"] {
+                -moz-appearance: textfield;
+            }
+
         </style>
     </head>
     <body>
@@ -165,6 +174,25 @@
                     }
                 });
             }
+
+            $(function(){
+                $(document).on("keypress", "input", function (e) {                                        
+                    if (e.keyCode == 8) {
+                        return true;
+                    }                                        
+                    else {
+                        if (/[\d]/.test(e.key)==false) return false;
+                        var len = 1;                        
+                        if (len > 0) {                            
+                            return (this.value.length < len);
+                        }
+                    }
+                    return true;
+                });
+                $(document).on("change","input",function (e){
+                    return false;
+                })
+            })
         </script>
     </body>
 </html>

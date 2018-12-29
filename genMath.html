@@ -28,8 +28,7 @@
 
         </style>
     </head>
-    <body>
-        <div id="log"></div>
+    <body>        
         <div class="container-fluid">
             <div class="ctrl">                
                 <select id="cnt">
@@ -190,9 +189,8 @@
                     }
                     return true;
                 });
-                $(document).on("input","input",function (e){
-                    $("#log").append(e.keyCode+","+this.value);
-                    if(this.value.length>1) return false;
+                $(document).on("input","input",function (e){                    
+                    if(this.value.length>1) this.value=this.value.substr(0,1);
                 })
             })
         </script>

@@ -189,8 +189,8 @@
                     }
                     return true;
                 });
-                $(document).on("change","input",function (e){
-                    return false;
+                $(document).on("input","input",function (e){
+                    if(this.value.length>1) return false;
                 })
             })
         </script>

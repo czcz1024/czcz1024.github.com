@@ -29,6 +29,7 @@
         </style>
     </head>
     <body>
+        <div id="log"></div>
         <div class="container-fluid">
             <div class="ctrl">                
                 <select id="cnt">
@@ -190,6 +191,7 @@
                     return true;
                 });
                 $(document).on("input","input",function (e){
+                    $("#log").append(e.keyCode+","+this.value);
                     if(this.value.length>1) return false;
                 })
             })

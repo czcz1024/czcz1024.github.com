@@ -99,7 +99,7 @@
                 else if (type==1) typestr="-";
                 var result=['<span class="'+(typestr==''?'space':'type')+'">'+typestr+'</span>'];
                 for(var i=0;i<arr.length;i++){
-                    if(i==blank) result.push('<span class="blank"><input type="tel" maxlength="1" tag='+arr[i]+' /></span>');
+                    if(i==blank) result.push('<span class="blank"><input type="number" max="9" min="0" maxlength="1" tag='+arr[i]+' /></span>');
                     else result.push('<span class="num">'+arr[i]+'</span>');
                 }
                 return result.join("");
@@ -188,7 +188,10 @@
                         }
                     }
                     return true;
-                });                
+                });
+                $(document).on("change","input",function (e){
+                    return false;
+                })
             })
         </script>
     </body>

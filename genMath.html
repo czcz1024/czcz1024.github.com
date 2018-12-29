@@ -9,7 +9,7 @@
         <style>
             *{margin: 0;padding: 0;}
             .container-fluid{
-                margin-top: 20px;
+                margin-top: 10px;
             }
             span{width: 30px;display: inline-block;margin: 10px;text-align: center}
             .blank input{width: 30px; height:30px;text-align: center; border: 1px solid #111; font-size: 22px;}
@@ -41,9 +41,14 @@
                     <option value="1">减法</option>
                 </select>                
                 <button id="gen" onclick="gen()" type="button" class="btn btn-primary" >生成</button>                
-                <button id="check" onclick="check()" type="button" class="btn btn-warning" >检查</button>                
+                <!-- <button id="check" onclick="check()" type="button" class="btn btn-warning" >检查</button>                 -->
             </div>            
             <div id="show" class="ti"></div>
+            <div id="next" class="row">
+                <div class="col-md-11">
+                    <button id="check" onclick="check()" type="button" class="btn btn-warning btn-block" >检查</button>                
+                </div>
+            </div>
         </div>
         <script>            
             function rnd(min,max){
@@ -136,7 +141,7 @@
                     $("#show").append(divResult).append(divy).append(divline2).append(divyr);
                 }
                 else{
-                    $("#show").append(divResult);
+                    $("#show").append(divResult);                    
                 }
             }
 
@@ -161,7 +166,7 @@
                         pass=x.number1>9 && x.number2>9 && x.result>9 && y.number2>9 && y.result>9;
                         console.log(x.number1+(x.type==0?"+":"-")+x.number2+"="+x.result+(y.type==0?"+":"-")+y.number2+"="+y.result);
                     }
-
+                    $("#next").show();                    
                 }
             }
 
@@ -169,13 +174,17 @@
                 $("input").each(function(){
                     if($(this).val()!=$(this).attr("tag")){
                         $(this).addClass("err").removeClass("ok");
+                        $("#gen").attr("disabled",true);
                     }else{
                         $(this).removeClass("err").addClass("ok");
+                        $("#gen").attr("disabled",false);
+                        //gen();
                     }
                 });
             }
 
             $(function(){
+                $("#next").hide();
                 $(document).on("keypress", "input", function (e) {                                        
                     if (e.keyCode == 8) {
                         return true;

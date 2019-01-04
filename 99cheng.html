@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <script src="http://cdn3.ttce.cn/ttce_plugins/jquery-1.10.2.min.js"></script>
+        <link href="https://cdn.bootcss.com/twitter-bootstrap/4.2.1/css/bootstrap.css" rel="stylesheet">
+        <style>
+            *{margin: 0;padding: 0;}
+            .container-fluid{
+                margin-top: 10px;
+            }
+            .cntinput{width: 60px; height:30px;text-align: center; border: 1px solid #111; font-size: 22px;}
+            span{width: 30px;display: inline-block;margin: 10px;text-align: center}
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+            }
+            
+            input[type="number"] {
+                -moz-appearance: textfield;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <select id="type">
+                <option value="-1">随机</option>
+                <option value="0">乘法</option>
+                <option value="1">除法</option>
+            </select> 
+            数量：
+            <input type="number" id="cnt" class="cntinput" />
+            <button id="gen" onclick="gen()" type="button" class="btn btn-primary">生成</button>
+        </div>
+        <div id="content">
+
+        </div>
+        <script>
+            function rnd(min,max){
+                    return Math.floor(Math.random() * (max - min + 1) + min)
+            }
+
+            function rndOne(type){
+                var num1=rnd(1,9);
+                var num2=rnd(1,9);
+                var r=num1 * num2;
+                if(type!=0 && type!=1){
+                    type=rnd(0,1)==1;
+                }
+                var result={};
+                result.number1=type==0?num1:r;
+                result.number2=num2;
+                result.result=type==0?r:num1;
+                result.type=type;
+                return result;
+            }
+
+            function gen(){
+                $("#content").empty();
+                var type=$("#type").val();
+                var cnt=$("#cnt").val();
+                for(var i=0;i<cnt;i++){
+                    var r=rndOne(type);
+                    showOne(r);
+                    //console.log(r.number1 + (r.type==0?"×":"÷") +r.number2+"="+r.result );
+                }
+            }
+
+            function showOne(r){
+                var div=$("<div />");
+                div.append("<span>"+r.number1+"</span>");
+                div.append("<span>"+(r.type==0?"×":"÷")+"</span>");
+                div.append("<span>"+r.number2+"</span>");
+                div.append("<span>=</span>");
+
+                $("#content").append(div);
+            }
+        </script>
+    </body>
+</html>
